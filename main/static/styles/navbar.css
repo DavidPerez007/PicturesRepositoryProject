@@ -1,0 +1,56 @@
+/* Fuente principal */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Estilos para el encabezado */
+header {
+  background-color: #242424;
+  padding: 1rem;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+/* Estilos para la lista de enlaces */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+/* Estilos para cada enlace */
+nav li {
+  margin: 0 1rem;
+}
+
+nav a {
+  color: #eee;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+/* Efectos al pasar el mouse sobre los enlaces */
+nav a:hover {
+  color: #ff9800;
+  text-decoration: underline;
+}
+
+/* Estilos para el botón de inicio de sesión */
+nav .login-button {
+  background-color: #ff9800;
+  color: #222;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Efectos al pasar el mouse sobre el botón de inicio de sesión */
+nav .login-button:hover {
+  background-color: #fff;
+  color: #222;
+  text-decoration: none;
+}
