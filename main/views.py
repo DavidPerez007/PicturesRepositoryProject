@@ -31,26 +31,20 @@ def sign_up(request):
             print(form.is_valid())
             print(form.errors)
             if form.is_valid():
-                username = form.cleaned_data.get('username')
-                password = form.cleaned_data.get('password1')
                 user = User.objects.create_user(
-                    username,
-                    password
+                    username=form.cleaned_data.get('username'),
+                    password=form.cleaned_data.get('password1'),
                     # email= request.POST['email']
                     # legal_age = request.POST['legal']
                     # ADD SOME OTHER FIELDS LIKE +18 AND EMAIL
                 )
                 user.save()
                 login(request, user)
-            context_dict = {
-            'signup_form': UserCreationForm,
-            'errors': form.errors.as_ul
-            }
-            return render(request, 'signup.html', context_dict)
+                return redirect('home')
         except IntegrityError:
             context_dict = {
-            'signup_form': UserCreationForm,
-            'errors': form.errors.as_ul
+                'signup_form': UserCreationForm,
+                'errors': form.errors.as_ul
             }
             return render(request, 'signup.html', context_dict)
 
@@ -66,6 +60,7 @@ def log_in(request):
                 login(request, user)
                 return redirect('home')
             else:
+                print("invalid algo")
                 form.add_error(None, 'Invalid username or password.')
     else:
         form = AuthenticationForm()
