@@ -11,10 +11,11 @@
     <title>Document</title>
 </head>
 <body>
-    
+    {% if errors %}
     <ul class="form-errors">
         {{errors}}
     </ul>
+    {% endif %}
     <div class="form_container">
         
         <form action="" method="POST">

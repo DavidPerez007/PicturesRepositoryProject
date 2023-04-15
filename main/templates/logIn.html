@@ -12,7 +12,11 @@
     
 {% include "header.html" %}
 
+
+
 {% block content %}
+
+
 <div class="container">
   <form class="auth-form" method="post">
     {% csrf_token %}
@@ -26,7 +30,7 @@
     {{ form.username }}
     <label for="{{ form.password.id_for_label }}">Contraseña:</label>
     {{ form.password }}
-    <button type="submit">Iniciar sesión</button>
+    <button type="submit">Log In</button>
   </form>
 </div>
 {% endblock %}

@@ -13,7 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 40vh;
+  height: auto;
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -76,4 +76,15 @@
 
 .form-container {
   background-color: #0062cc;
+}
+
+ul.nonfield {
+  margin: 0;
+  padding: 10px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  list-style: none;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
 }

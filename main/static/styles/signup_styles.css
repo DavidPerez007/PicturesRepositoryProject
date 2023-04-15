@@ -72,6 +72,7 @@ ul.form-errors {
 }
 
 ul.form-errors li {
+  font-family: "Montserrat", sans-serif;
   display: inline-block;
   margin: 0 5px;
 }

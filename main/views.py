@@ -2,7 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
+from .utils import create_user
 
 from django.db import IntegrityError
 
@@ -55,8 +56,17 @@ def sign_up(request):
 
 
 def log_in(request):
-    if (request.method == 'GET'):
-        context = {
-            'form': AuthenticationForm
-        }
-        return render(request, 'logIn.html', context)
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                form.add_error(None, 'Invalid username or password.')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
