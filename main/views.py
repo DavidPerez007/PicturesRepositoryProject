@@ -1,9 +1,13 @@
+import io
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from .utils import create_user
+from .forms import postForm
+from .models import Image
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from django.db import IntegrityError
 
@@ -58,10 +62,38 @@ def log_in(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('post')
             else:
                 print("invalid algo")
                 form.add_error(None, 'Invalid username or password.')
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+def about_us(request):
+    return render(request, 'about.html')
+
+def post(request):
+    context_dict = {
+            'post_form': postForm(),
+        }
+    if(request.method == 'GET'):
+        return render(request, 'postPage.html', context_dict)
+    else:
+        form = postForm(request.POST, request.FILES)
+        print(form.errors)
+        print("files: " , request.FILES)
+        if form.is_valid():
+            image_name = form.cleaned_data['image_name']
+            description = form.cleaned_data['description']
+            # image = form.cleaned_data['image']
+            image = request.FILES['image']
+            
+            new_image = Image(name=image_name, description=description, image=image)
+            print("holaaa")
+            new_image.save()
+        
+            return redirect('post')
+        else: 
+            print("Invalid form")
+            return render(request, 'postPage.html', context_dict)

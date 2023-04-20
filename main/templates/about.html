@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Repositorio de Imágenes</title>
+  <link rel="stylesheet" href="{% static 'styles/about.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+  
+  <main>
+    <section>
+      <h2>About</h2>
+      <p>El Repositorio de Imágenes es un proyecto de código abierto que busca ofrecer una amplia selección de imágenes para ser usadas como fondo de pantalla o cualquier otro propósito que desees.</p>
+      <p>El proyecto es mantenido por un equipo de desarrolladores voluntarios y su objetivo es ofrecer una experiencia de usuario fácil de usar y de alta calidad.</p>
+    </section>
+    
+    <section>
+      <h2>Nuestro Equipo</h2>
+      <ul>
+        <li>Desarrollador Principal - John Doe</li>
+        <li>Diseñador UI/UX - Jane Doe</li>
+        <li>Desarrollador Frontend - James Smith</li>
+        <li>Desarrollador Backend - Emily Johnson</li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>Contribuciones</h2>
+      <p>Si te interesa contribuir al proyecto, puedes hacerlo de varias maneras:</p>
+      <ul>
+        <li>Añadir nuevas imágenes al repositorio.</li>
+        <li>Ayudar a mejorar la experiencia de usuario.</li>
+        <li>Ayudar a mejorar la calidad del código.</li>
+        <li>Donar al proyecto para cubrir gastos de alojamiento y otros costos.</li>
+      </ul>
+      <p>Puedes encontrar más información sobre cómo contribuir en nuestra página de <a href="/contributions">Contribuciones</a>.</p>
+    </section>
+  </main>
+  
+  <footer>
+    <p>Derechos Reservados © 2023 Repositorio de Imágenes</p>
+  </footer>
+</body>
+</html>
