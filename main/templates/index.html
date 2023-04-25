@@ -11,11 +11,19 @@
 <body>
     {% include 'header.html' %}
 
-    {% for image in images %}
-        <div class="img-container">
-            <img src="{{image.image.url}}" alt="">
-        </div>
-    {% endfor %}
+    <div class="image-container">
+        {% for image in images %}
+          <div class="card">
+            <img src="{{ image.image.url }}" alt="{{ image.name }}">
+            <div class="card-info">
+              <h3>{{ image.name }}</h3>
+              <p>{{ image.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      
    
 </body>
 </html>
