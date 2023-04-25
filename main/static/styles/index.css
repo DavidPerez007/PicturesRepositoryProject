@@ -1,0 +1,13 @@
+.img-container {
+    display: inline;
+    flex-wrap: wrap;
+    
+  }
+  
+  .img-container img {
+    width: calc(25% - 10px);
+    height: auto;
+    margin-bottom: 10px;
+    object-fit: contain;
+  }
+  

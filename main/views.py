@@ -16,8 +16,9 @@ from django.db import IntegrityError
 
 def home(request):
     if (request.method == 'GET'):
+        images = Image.objects.all()
         context_dict = {
-            # 'username': username
+            'images': images,
         }
         # TODO
     return render(request, 'index.html', context_dict)
