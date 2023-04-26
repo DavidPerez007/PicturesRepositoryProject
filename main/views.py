@@ -34,7 +34,6 @@ def sign_up(request):
         try:
             form = UserCreationForm(request.POST)
             print(form.is_valid())
-            print(form.errors)
             if form.is_valid():
                 user = User.objects.create_user(
                     username=form.cleaned_data.get('username'),
@@ -46,12 +45,21 @@ def sign_up(request):
                 user.save()
                 login(request, user)
                 return redirect('home')
-        except IntegrityError:
-            context_dict = {
+            else:
+                context_dict = {
                 'signup_form': UserCreationForm,
                 'errors': form.errors.as_ul
-            }
+                }
             return render(request, 'signup.html', context_dict)
+        
+        except IntegrityError:
+            return render(request, 'signup.html', {
+                'form': UserCreationForm,
+                'error': 'Username already existe'
+            }) 
+
+            
+
 
 
 def log_in(request):
@@ -70,6 +78,10 @@ def log_in(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+def log_out(request):
+    logout(request)
+    return redirect('home')
 
 def about_us(request):
     return render(request, 'about.html')
@@ -91,10 +103,13 @@ def post(request):
             image = request.FILES['image']
             
             new_image = Image(name=image_name, description=description, image=image)
-            print("holaaa")
             new_image.save()
         
             return redirect('post')
         else: 
             print("Invalid form")
             return render(request, 'postPage.html', context_dict)
+        
+def show_profile(request):
+    if(request.method == 'GET'):
+        return render(request, 'myprofile.html')

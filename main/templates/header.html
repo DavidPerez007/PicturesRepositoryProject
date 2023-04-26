@@ -7,10 +7,27 @@
   <header>
     <nav>
       <ul>
-        <li><a href="/">Home</a></li>
+        {% if user.is_authenticated %}
+        <div class="container">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/logout/">Log out</a></li>
+          <li><a href="/search/">Search</a></li> <!--TODO-->
+        </div>
+        
+        <div class="container">
+          <li>
+            <a href="/myprofile/">aa</a>
+            <img class="user-icon" src="{% static 'images/user-icon.png' %}" alt="">
+          </li> <!--TODO-->
+        </div>
+        
+        {% else %}
         <li><a href="/login/">Log In</a></li>
         <li><a href="/signup/">Sign Up</a></li>
-        <li><a href="/about/">About Us</a></li>
+        {% endif %}
+        
+
       </ul>
     </nav>
   </header>

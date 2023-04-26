@@ -4,7 +4,7 @@
 /* Estilos para el encabezado */
 header {
   background-color: #242424;
-  padding: 1rem;
+  padding: 0.2rem;
   position: relative;
   top: 0;
   left: 0;
@@ -18,11 +18,14 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Estilos para cada enlace */
 nav li {
   margin: 0 1rem;
+  display: inline;
 }
 
 nav a {
@@ -37,6 +40,7 @@ nav a {
 nav a:hover {
   color: #ff9800;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 /* Estilos para el botón de inicio de sesión */
@@ -53,4 +57,19 @@ nav .login-button:hover {
   background-color: #fff;
   color: #222;
   text-decoration: none;
+}
+.container{
+  height: 100%;
+}
+
+.user-icon{
+  height: 35px;
+  width: auto;
+}
+
+.container img:hover {
+  transform: scale(1.15);
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
