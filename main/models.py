@@ -10,7 +10,7 @@ class Image(models.Model):
     pub_date = models.DateTimeField(default=timezone.now)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
-    image = models.ImageField(upload_to="media")
+    image = models.BinaryField()
 
     def __str__(self):
         return self.name

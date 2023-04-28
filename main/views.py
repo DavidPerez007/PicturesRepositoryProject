@@ -4,11 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from .utils import create_user
+from .utils import create_user, convert_image_to_bytes, show_img
 from .forms import postForm
 from .models import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile
-
 from django.db import IntegrityError
 
 # Create your views here.
@@ -94,17 +93,14 @@ def post(request):
         return render(request, 'postPage.html', context_dict)
     else:
         form = postForm(request.POST, request.FILES)
-        print(form.errors)
         print("files: " , request.FILES)
         if form.is_valid():
             image_name = form.cleaned_data['image_name']
             description = form.cleaned_data['description']
             # image = form.cleaned_data['image']
-            image = request.FILES['image']
-            
+            image = request.FILES['image'].read()
             new_image = Image(name=image_name, description=description, image=image)
             new_image.save()
-        
             return redirect('post')
         else: 
             print("Invalid form")

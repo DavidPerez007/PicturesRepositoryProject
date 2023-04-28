@@ -1,5 +1,10 @@
 from django.contrib.auth.models import User
 from django.forms import ValidationError
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from io import BytesIO
+import psycopg2
+from PIL import Image
+from io import BytesIO
 
 
 def create_user(form):
@@ -21,3 +26,17 @@ def validate_image_type(value):
     valid_types = ['image/jpeg', 'image/png']
     if value.content_type not in valid_types:
         raise ValidationError('Formato de imagen no válido (JPEG/PNG)')
+
+
+
+def convert_image_to_bytes(image):
+    if isinstance(image, InMemoryUploadedFile):
+        return image.read()
+    else:
+        image_io = BytesIO()
+        image.save(image_io, format='JPEG')
+        return image_io.getvalue()
+
+def show_img(bytes):
+    image = Image.open(BytesIO(bytes))
+    image.show()
