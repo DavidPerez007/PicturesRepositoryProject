@@ -17,7 +17,11 @@
     </ul>
     {% endif %}
     <div class="form_container">
-        
+        <div class="errors-list">
+            <ul>
+                <li>error</li>
+            </ul>
+        </div>
         <form action="" method="POST">
             {% csrf_token %}
             {{signup_form}}

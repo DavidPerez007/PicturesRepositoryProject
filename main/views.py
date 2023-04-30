@@ -1,18 +1,15 @@
 import io
+from django.forms import ValidationError
 from django.shortcuts import redirect, render
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from .utils import create_user, convert_image_to_bytes, show_img
+from .utils import create_user, save_img
 from .forms import postForm
 from .models import Image
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import IntegrityError
 
 # Create your views here.
-
-
 def home(request):
     if (request.method == 'GET'):
         images = Image.objects.all()
@@ -32,15 +29,8 @@ def sign_up(request):
     else:
         try:
             form = UserCreationForm(request.POST)
-            print(form.is_valid())
             if form.is_valid():
-                user = User.objects.create_user(
-                    username=form.cleaned_data.get('username'),
-                    password=form.cleaned_data.get('password1'),
-                    # email= request.POST['email']
-                    # legal_age = request.POST['legal']
-                    # ADD SOME OTHER FIELDS LIKE +18 AND EMAIL
-                )
+                user = create_user(form)
                 user.save()
                 login(request, user)
                 return redirect('home')
@@ -56,10 +46,6 @@ def sign_up(request):
                 'form': UserCreationForm,
                 'error': 'Username already existe'
             }) 
-
-            
-
-
 
 def log_in(request):
     if request.method == 'POST':
@@ -87,25 +73,19 @@ def about_us(request):
 
 def post(request):
     context_dict = {
-            'post_form': postForm(),
-        }
+        'post_form': postForm(),
+    }
     if(request.method == 'GET'):
         return render(request, 'postPage.html', context_dict)
     else:
         form = postForm(request.POST, request.FILES)
-        print("files: " , request.FILES)
         if form.is_valid():
-            image_name = form.cleaned_data['image_name']
-            description = form.cleaned_data['description']
-            # image = form.cleaned_data['image']
-            image = request.FILES['image'].read()
-            new_image = Image(name=image_name, description=description, image=image)
-            new_image.save()
-            return redirect('post')
-        else: 
-            print("Invalid form")
-            return render(request, 'postPage.html', context_dict)
-        
+            save_img(request, form)
+            return redirect('post')   
+        else:
+            print(form.errors.as_ul)
+            context_dict.update({'exceptions': form.errors})
+        return render(request, 'postPage.html', context_dict)
 def show_profile(request):
     if(request.method == 'GET'):
         return render(request, 'myprofile.html')

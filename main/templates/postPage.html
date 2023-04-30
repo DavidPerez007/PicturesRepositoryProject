@@ -10,11 +10,17 @@
     <title>Document</title>
 </head>
 <body>
+    {% if exceptions %}
+    <ul class="errors-container">
+        {% for exception in exceptions %}
+        <li class="error-li">{{ exception }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form action="{% url 'post' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{post_form}}
         <button>Post</button>
     </form>
-    
 </body>
 </html>

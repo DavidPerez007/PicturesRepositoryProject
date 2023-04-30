@@ -1,11 +1,14 @@
+{% extends 'header.html' %}
+{% block content %}
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Mi perfil</title>
+	<title>My profile</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/profile.css' %}">
 </head>
 <body>
+	
 	<div class="container">
 		<div class="profile-section">
 			<img class="profile-image" src="foto-perfil.jpg" alt="Foto de perfil">
@@ -29,7 +32,13 @@
 				<h3>Comentarios recibidos</h3>
 				<p>200</p>
 			</div>
+			<div class="post-btn">
+				<a href="{% url 'post'%}">Post an image</a>
+			</div>
 		</div>
+		
 	</div>
 </body>
+
 </html>
+{% endblock %}

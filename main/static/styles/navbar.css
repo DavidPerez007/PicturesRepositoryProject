@@ -67,7 +67,7 @@ nav .login-button:hover {
   width: auto;
 }
 
-.container img:hover {
+.header-container img:hover {
   transform: scale(1.15);
   transition: transform 0.2s ease-in-out;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
