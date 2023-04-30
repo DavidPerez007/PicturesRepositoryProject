@@ -1,6 +1,9 @@
+import base64
+from io import BytesIO
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.utils import timezone
+from PIL import Image as ImagePillow
 
 
 # Create your models here.
@@ -14,6 +17,8 @@ class Image(models.Model):
 
     def __str__(self):
         return self.name
+    
+
 
 class CustomUser(AbstractBaseUser):
     username = models.CharField(max_length=30, unique=True, verbose_name='username')

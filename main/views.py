@@ -1,18 +1,20 @@
-import io
-from django.forms import ValidationError
+from io import BytesIO
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from .utils import create_user, save_img
+from .utils import create_user, save_img, unconvert_img
 from .forms import postForm
 from .models import Image
+from PIL import Image as ImagePillow
 from django.db import IntegrityError
 
 # Create your views here.
 def home(request):
     if (request.method == 'GET'):
         images = Image.objects.all()
+
         context_dict = {
             'images': images,
         }
@@ -89,3 +91,12 @@ def post(request):
 def show_profile(request):
     if(request.method == 'GET'):
         return render(request, 'myprofile.html')
+    
+def img_view(request, image_id):
+    image = Image.objects.get(id=image_id)
+    built_img = ImagePillow.open(BytesIO(image.image))
+    img_format = built_img.format
+    with BytesIO() as buffer:
+        built_img.save(buffer, format=img_format)
+        img_data = buffer.getvalue()
+    return HttpResponse(img_data, content_type=f"image/{img_format.lower()}")

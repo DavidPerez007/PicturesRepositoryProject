@@ -1,4 +1,6 @@
+{% extends 'header.html' %}
 {% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,22 +10,25 @@
     <link rel="stylesheet" href="{% static 'styles/index.css' %}">
     <title>Document</title>
 </head>
+
 <body>
-    {% include 'header.html' %}
+    
 
     <div class="image-container">
         {% for image in images %}
           <div class="card">
-            <img src="{{ image.image.url }}" alt="{{ image.name }}">
+            
+            <img src="{% url 'image_view' image.id %}" alt="{{ image.name }}">
             <div class="card-info">
               <h3>{{ image.name }}</h3>
               <p>{{ image.description }}</p>
             </div>
           </div>
         {% endfor %}
-      </div>
+      </div> 
       
       
    
 </body>
 </html>
+{% endblock %}

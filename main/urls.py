@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/', views.log_out, name='logout'),
     path('myprofile/', views.show_profile, name='profile'),
     path('myprofile/post/', views.post, name='post'),
+    path('image/<int:image_id>/', views.img_view, name='image_view'), #Provisional view to generate a url to render images in HTML
 ]
